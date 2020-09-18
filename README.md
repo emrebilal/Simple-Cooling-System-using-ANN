@@ -1,2 +1,2 @@
 # Simple-Cooling-System-using-Basic-Neural-Network
-Raspberry Pi Works
+Raspberry Pi Project with Artificial Neural Network
