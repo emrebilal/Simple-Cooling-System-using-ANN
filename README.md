@@ -3,4 +3,4 @@ To use the DHT11 sensor, I installed the Adafruit_CircuitPython_DHT module on my
 
 I included the temperature and humidity values into the artificial neural network algorithm. After giving the input values, I trained the system according to these values. I set output values to 1 and 0. The system continuously entering the temperature and humidity value on the artificial neural network. If the result is approaching 1, the system decides to turn on the cooling system (fan). If the result is close to 0, the system turns off the cooling system (fan).
 
-**NOTE**: The code works without Raspberry. Codes that will run on Raspberry are in the comment line.
+**NOTE**: The code works without Raspberry Pi. Make the sensor connections to run on Raspberry Pi and open the comment lines in the code.
