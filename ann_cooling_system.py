@@ -1,13 +1,5 @@
 import numpy as np
 
-import sys
-import Adafruit_DHT
-import RPi.GPIO as GPIO
-
-#Raspberry Pi Connections
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(17, GPIO.OUT)
-
 def sigmoid(x):
   # Sigmoid activation function: f(x) = 1 / (1 + e^(-x))
   return 1 / (1 + np.exp(-x))
@@ -187,24 +179,20 @@ all_y_trues = np.array([
 # Train our neural network!
 network = OurNeuralNetwork()
 network.train(data, all_y_trues)
+'''
+# Make some predictions
+fan_on = np.array([3, 20]) # 33 C, %70
+fan_off = np.array([-7, -20])  # 23 C, %30
+print("Fan ON: %.3f" % network.feedforward(fan_on)) # 0.988 ~ 1 (Fan On)
+print("Fan OFF: %.3f" % network.feedforward(fan_off)) # 0.166 ~ 0 (Fan Off)
 
+'''
 while True:
-    humidity, temperature=Adafruit_DHT.read_retry(11,4)
-    print ("Temp: {0:0.1f} C Humidity: {1:0.1f} %".format(temperature, humidity))
-    
-    if temperature >= 20:
-      p_temp = temperature - 30
-      p_hum = humidity - 50
-      value = np.array([p_temp, p_hum])
-      fan_status = network.feedforward(value)
-      print("Fan Status: %.3f" % fan_status)
-    
-      if(fan_status > 0.499):
-        GPIO.output(17,GPIO.HIGH)
-        print("Fan ON!")
-      else:
-        GPIO.output(17,GPIO.LOW)
-        print("Fan OFF!")
-    else:
-      print("The weather is below 20 degrees!")
+    temp = int(input("Temp(C): "))
+    humidity = int(input("Humidity(%): "))
 
+    p_temp = temp - 30
+    p_hum = humidity - 50
+    value = np.array([p_temp, p_hum])
+    fan_status = network.feedforward(value)
+    print("Fan Status: %.3f" % fan_status)
